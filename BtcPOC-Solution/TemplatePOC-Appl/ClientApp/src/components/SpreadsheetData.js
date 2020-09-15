@@ -24,13 +24,21 @@ import "./sreadsheet.css";
 import { createElement } from '@syncfusion/ej2-base'
 
 
-
- 
-
 var sheetn = {
     Rept_Name: "Santxt",
-    edit: "true"
-
+    BoldF: false,
+    AeditC: true,
+    HideC: false,
+    HideR: false,
+    Ainsertc: false,
+    deleter: false,
+    italicc: false,
+    Pbackground: '#fff',
+    colorc: "rgb(0, 0, 0)",
+    Adeletec: false,
+    AHideC: false,
+    Psheet: false,
+    Cunderline: false
 };
 
 
@@ -74,15 +82,6 @@ export class SpreadsheetData extends SpreadsheetComponent {
         });
     }
 
-    hide() {
-        this.spreadsheet.hideRow(2, 2, true);
-        this.spreadsheet.hideColumn(3, 4, true);
-    }
-    unhide() {
-        this.spreadsheet.hideRow(2, 2, false);
-        this.spreadsheet.hideColumn(3, 4, false);
-    }
-
 
     //loadFile() {
     //    let request = new XMLHttpRequest();
@@ -105,31 +104,7 @@ export class SpreadsheetData extends SpreadsheetComponent {
         request.send();
         this.spreadsheet.isEdit = false;
     }
-    boldfont() {
-        //this.spreadsheet.setUsedRange.apply("Sanjeeva","1,2");
-        this.spreadsheet.selectRange("A1:C3");
-        this.spreadsheet.cellFormat({
-            fontWeight: "bold", textAlign: "Center", textDecoration: "underline"
-        }, "A1:C3");
-        //this.spreadsheet.element()
-        //this.spreadsheet.cellEditing()
-        this.spreadsheet.hideColumn("1");
-        this.spreadsheet.hideRow(3);
-        this.spreadsheet.allowDelete = false;
-        // this.SpreadsheetComponent
-        // this.spreadsheet.allowEditing = false;
-        this.spreadsheet.allowInsert = false;
-        this.spreadsheet.allowCellFormatting = false;
-        //this.spreadsheet.se.XLSelection..selectColumns(0, 2);
-        //this.XLDragFill.positionAutoFillElement();
-        // this.XLDragFill.positionAutoFillElement();
-        //this.spreadsheet.selectionSettings.cellFormat(
-        //    { fontWeight: "bold",  textAlign: "left", verticalAlign: "middle" }
-
-        //);
-    }
-
-    onCreated() {
+       onCreated() {
         this.spreadsheet.cellFormat(
             { fontWeight: "bold", textAlign: "center", verticalAlign: "middle" },
             "A1:F1"
@@ -193,11 +168,128 @@ export class SpreadsheetData extends SpreadsheetComponent {
         document.body.removeChild(anchor);
     }
 
+    TogelInsertAction() {
+        sheetn = {
+            ...sheetn, Ainsertc: !sheetn.Ainsertc
+        };
+        this.spreadsheet.allowInsert = sheetn.Ainsertc;
+
+    }
+
+    TogelHiheColumn() {
+        sheetn = {
+            ...sheetn, HideC: !sheetn.HideC
+        };
+        // this.spreadsheet.hideColumn("1");
+        //this.spreadsheet.hideRow(1,2,(3);
+
+        this.spreadsheet.hideColumn(3, 4, sheetn.HideC);
+
+    }
+    TogelEdit() {
+        sheetn = {
+            ...sheetn, AeditC: !sheetn.AeditC
+        };
+        // this.spreadsheet.hideColumn("1");
+        //this.spreadsheet.hideRow(1,2,(3);
+        this.spreadsheet.allowEditing = sheetn.AeditC;
+    }
+    handleChangeComplete = (color) => {
+        //  sheetn({ ...sheetn, Pbackground: color.hex });
+        this.spreadsheet.cellFormat({
+            background: "#eee", color: "red"
+        }, "A1:C3");
+
+    }
+    TogelePSheet() {
+        sheetn = {
+            ...sheetn, Psheet: !sheetn.Psheet
+        };
+        // this.spreadsheet.hideColumn("1");
+        //this.spreadsheet.hideRow(1,2,(3);
+        this.spreadsheet.protectSheet = sheetn.Psheet;
+    }
+    TogeleDelete() {
+        sheetn = {
+            ...sheetn, deleter: !sheetn.deleter
+        };
+        // this.spreadsheet.hideColumn("1");
+        //this.spreadsheet.hideRow(1,2,(3);
+        this.spreadsheet.allowDelete = sheetn.deleter;
+    }
+
+    TogelHiheRow() {
+        sheetn = {
+            ...sheetn, HideR: !sheetn.HideR
+        };
+        // this.spreadsheet.hideColumn("1");
+        //this.spreadsheet.hideRow(1,2,(3);
+
+        this.spreadsheet.hideRow(2, 2, sheetn.HideR);
+
+    }
+
+    TBoldColumn() {
+        sheetn = {
+            ...sheetn, BoldF: !sheetn.BoldF
+        };
+
+        var bbold = "";
+        if (sheetn.BoldF) {
+            bbold = "bold";
+        }
+        this.spreadsheet.cellFormat({
+            fontWeight: bbold
+        }, "A1:C3");
+
+    }
+
+    TUnderline() {
+        sheetn = {
+            ...sheetn, Cunderline: !sheetn.Cunderline
+        };
+
+        var Cunderline = "";
+        if (sheetn.Cunderline) {
+            Cunderline = "underline";
+        }
+        this.spreadsheet.cellFormat({
+            textDecoration: Cunderline
+        }, "A1:C3");
+
+    }
+
+    boldfont() {
+        //this.spreadsheet.setUsedRange.apply("Sanjeeva","1,2");
+        //   this.spreadsheet.currentContext.ce
+        this.spreadsheet.selectRange("A1:C3");
+        this.spreadsheet.cellFormat({
+            fontWeight: "bold", textAlign: "Center", textDecoration: "underline"
+        }, "A1:C3");
+        this.activeSheetIndex = 1;
+        //this.spreadsheet.element()
+        //this.spreadsheet.cellEditing()
+        this.spreadsheet.hideColumn("1");
+        this.spreadsheet.hideRow(3);
+        this.spreadsheet.allowDelete = false;
+        // this.SpreadsheetComponent
+        // this.spreadsheet.allowEditing = false;
+        this.spreadsheet.allowInsert = false;
+        this.spreadsheet.allowCellFormatting = false;
+        //this.spreadsheet.se.XLSelection..selectColumns(0, 2);
+        //this.XLDragFill.positionAutoFillElement();
+        // this.XLDragFill.positionAutoFillElement();
+        //this.spreadsheet.selectionSettings.cellFormat(
+        //    { fontWeight: "bold",  textAlign: "left", verticalAlign: "middle" }
+
+        //);
+    }
 
     TemplateTrial(fl) {
         sheetn = {
-            Rept_Name: fl
+            ...sheetn, Rept_Name: fl
         };
+
         //this.setState(prevState => {
         //    return {
         //        ...prevState,
@@ -260,9 +352,19 @@ export class SpreadsheetData extends SpreadsheetComponent {
                     </div>
                 </div>
                 <div className="right" >
-                    <button class='e-btn' onClick={this.boldfont.bind(this)}>Bold Font</button>
+                    <button class='e-btn' onClick={this.TBoldColumn.bind(this)}>toggle Bold</button>
+                    <button class='e-btn' onClick={this.TogelHiheColumn.bind(this)}>Hide/Unhide Column</button>
+                    <button class='e-btn' onClick={this.TogelHiheRow.bind(this)}>Hide/Unhide Row</button>
+                    <button class='e-btn' onClick={this.TogelEdit.bind(this)}>toggle Edit</button>
+                    <button class='e-btn' onClick={this.TogeleDelete.bind(this)}>toggle Delete</button>
+                    <button class='e-btn' onClick={this.TogelePSheet.bind(this)}>toggle Protect Sheet</button>
+
+                    <button class='e-btn' onClick={this.handleChangeComplete.bind(sheetn.Pbackground)}>Colour</button>
+
+                    <button class='e-btn' onClick={this.TUnderline.bind(this)}>Toggel Underline</button>
+                    <button class='e-btn' onClick={this.TogelInsertAction.bind(this)}>toggle Insert Action</button>
                     <button class='e-btn' onClick={this.HtmlConvt.bind(this)}>To HTML</button>
-                   
+                    <button class='e-btn' onClick={this.boldfont.bind(this)}>To XML</button>
                 </div>
             </div>
         );
